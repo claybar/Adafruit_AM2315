@@ -11,6 +11,9 @@ products from Adafruit!
 Written by Limor Fried/Ladyada for Adafruit Industries.  
 BSD license, all text above must be included in any redistribution
 
+Modified by Philip Barclay to allow fixed point access rather than only
+flaoting point to reduce compiled code size.
+
 Check out the links above for our tutorials and wiring diagrams 
 
 To download. click the ZIP button in the top-middle navbar, 
