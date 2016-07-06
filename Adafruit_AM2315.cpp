@@ -59,13 +59,11 @@ boolean Adafruit_AM2315::readData(void) {
   humidity = reply[2];
   humidity *= 256;
   humidity += reply[3];
-  humidity /= 10;
   //Serial.print("H"); Serial.println(humidity);
 
   temp = reply[4] & 0x7F;
   temp *= 256;
   temp += reply[5];
-  temp /= 10;
   //Serial.print("T"); Serial.println(temp);
 
   // change sign
@@ -95,6 +93,21 @@ float Adafruit_AM2315::readHumidity(void) {
  * Calling this method avoids the double I2C request.
  */
 bool Adafruit_AM2315::readTemperatureAndHumidity(float &t, float &h) {
+    if (!readData()) return false;
+    
+    t = temp / 10.0;
+    h = humidity / 10.0;
+    
+    return true;
+}
+
+/*
+ * This method returns both temperature and humidity in a single call and using a single I2C request.  See comment above for details.
+ *
+ * Rather than returning flaoting point values, the temperature and humidity is returned as a fixed point value in degree-tenths
+ * percent-tenths.
+ */
+bool Adafruit_AM2315::readTemperatureAndHumidity(int &t, int &h) {
     if (!readData()) return false;
     
     t = temp;
